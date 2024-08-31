@@ -8,17 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State  var inputText = ""
+    @State var isShowNextView = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack{
+            Text("あなたのなまえは?: \(inputText)")
+                .padding()
+            Button("名前を入力する"){
+                isShowNextView = true
+            }
+            .sheet(isPresented: $isShowNextView) {
+                inputView(inputText: $inputText)
+            }
         }
-        .padding()
     }
 }
 
+struct inputView: View {
+    @Binding var inputText : String
+    var body: some View {
+        TextField("", text: $inputText)
+            .background(.gray)
+            .padding()
+    }
+}
 #Preview {
     ContentView()
 }
