@@ -8,28 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State  var inputText = ""
-    @State var isShowNextView = false
+    @State var inputText = ""
+    @State var isShowInputView = false
     
     var body: some View {
-        VStack{
-            Text("あなたのなまえは?: \(inputText)")
+        VStack {
+            Text("あなたの名前は？: \(inputText)")
                 .padding()
-            Button("名前を入力する"){
-                isShowNextView = true
+            Button("名前を入力する") {
+                isShowInputView = true
             }
-            .sheet(isPresented: $isShowNextView) {
-                inputView(inputText: $inputText)
+            .sheet(isPresented: $isShowInputView) {
+            InputView(inputText: $inputText)
             }
         }
     }
 }
 
-struct inputView: View {
-    @Binding var inputText : String
+struct InputView: View {
+    @Binding var inputText: String
     var body: some View {
-        TextField("", text: $inputText)
+        TextField("入力してください", text: $inputText)
             .background(.gray)
+            .foregroundColor(.white)
             .padding()
     }
 }
